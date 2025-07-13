@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced AI Recommendation System</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🚀 Advanced AI Recommendation System</h1>
+            <p class="subtitle">Powered by Machine Learning & Predictive Analytics</p>
+        </header>
+        
+        <nav class="tabs">
+            <button class="tab-button active" onclick="switchTab('finance')" data-tab="finance">
+                <span class="tab-icon">💰</span>
+                <span class="tab-text">Finance AI</span>
+            </button>
+            <button class="tab-button" onclick="switchTab('health')" data-tab="health">
+                <span class="tab-icon">🏥</span>
+                <span class="tab-text">Health AI</span>
+            </button>
+            <button class="tab-button" onclick="switchTab('learning')" data-tab="learning">
+                <span class="tab-icon">📚</span>
+                <span class="tab-text">Learning AI</span>
+            </button>
+            <button class="tab-button" onclick="switchTab('analytics')" data-tab="analytics">
+                <span class="tab-icon">📊</span>
+                <span class="tab-text">Analytics</span>
+            </button>
+        </nav>
+
+        <!-- Finance Tab -->
+        <div id="finance" class="tab-content active">
+            <div class="ml-info">
+                <h3>🤖 AI Finance Advisor</h3>
+                <p>Advanced ML-powered financial planning using ensemble methods, risk profiling, and predictive analytics.</p>
+                <div class="confidence-indicator">
+                    <span>Model Confidence: </span>
+                    <span class="confidence-score" id="finance-confidence">95.2%</span>
+                </div>
+            </div>
+            
+            <div class="input-section">
+                <h3>Financial Profile Input</h3>
+                <form id="finance-form" class="form-grid">
+                    <div class="input-group">
+                        <div class="input-field">
+                            <label for="income">Monthly Income ($)</label>
+                            <input type="number" id="income" name="income" placeholder="5000" value="5000" required>
+                        </div>
+                        <div class="input-field">
+                            <label for="expenses">Monthly Expenses ($)</label>
+                            <input type="number" id="expenses" name="expenses" placeholder="3500" value="3500" required>
+                        </div>
+                        <div class="input-field">
+                            <label for="savings">Current Savings ($)</label>
+                            <input type="number" id="savings" name="savings" placeholder="10000" value="10000" required>
+                        </div>
+                        <div class="input-field">
+                            <label for="debt">Total Debt ($)</label>
+                            <input type="number" id="debt" name="debt" placeholder="5000" value="5000">
+                        </div>
+                        <div class="input-field">
+                            <label for="age">Age</label>
+                            <input type="number" id="age" name="age" placeholder="30" value="30" min="18" max="100" required>
+                        </div>
+                        <div class="input-field">
+                            <label for="risk_tolerance">Risk Tolerance</label>
+                            <select id="risk_tolerance" name="risk_tolerance" required>
+                                <option value="conservative">Conservative</option>
+                                <option value="moderate" selected>Moderate</option>
+                                <option value="aggressive">Aggressive</option>
+                            </select>
+                        </div>
+                        <div class="input-field">
+                            <label for="investment_goal">Investment Goal</label>
+                            <select id="investment_goal" name="investment_goal" required>
+                                <option value="retirement">Retirement</option>
+                                <option value="house" selected>House Purchase</option>
+                                <option value="emergency">Emergency Fund</option>
+                                <option value="education">Education</option>
+                                <option value="travel">Travel</option>
+                            </select>
+                        </div>
+                        <div class="input-field">
+                            <label for="time_horizon">Time Horizon (years)</label>
+                            <input type="number" id="time_horizon" name="time_horizon" placeholder="10" value="10" min="1" max="50">
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button type="button" class="btn-primary" onclick="generateFinanceRecommendations()">
+                            🚀 Generate AI Recommendations
+                        </button>
+                        <button type="button" class="btn-secondary" onclick="resetForm('finance-form')">
+                            🔄 Reset Form
+                        </button>
+                        <button type="button" class="btn-secondary" onclick="exportRecommendations('finance')">
+                            📥 Export Report
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="finance-results" class="recommendations-container" style="display: none;">
+                <div class="recommendations-header">
+                    <h3>🤖 AI-Generated Recommendations</h3>
+                    <div class="processing-info">
+                        <span class="processing-badge">ML Processing Complete</span>
+                        <span class="timestamp" id="finance-timestamp"></span>
+                    </div>
+                </div>
+                <div id="finance-recommendations" class="recommendations-grid"></div>
+            </div>
+
+            <div class="charts-section">
+                <div class="chart-container">
+                    <div class="chart-wrapper">
+                        <canvas id="financeChart"></canvas>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="financeProjectionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Health Tab -->
+        <div id="health" class="tab-content">
+            <div class="ml-info">
+                <h3>🏥 AI Health Monitor</h3>
+                <p>ML-powered health analytics using anomaly detection, trend analysis, and personalized risk assessment.</p>
+                <div class="confidence-indicator">
+                    <span>Model Confidence: </span>
+                    <span class="confidence-score" id="health-confidence">92.8%</span>
+                </div>
+            </div>
+            
+            <div class="input-section">
+                <h3>Health Metrics Input</h3>
+                <form id="health-form" class="form-grid">
+                    <div class="input-group">
+                        <div class="input-field">
+                            <label for="health_age">Age</label>
+                            <input type="number" id="health_age" name="health_age" placeholder="30" value="30" min="18" max="100" required>
+                        </div>
+                        <div class="input-field">
+                            <label for="gender">Gender</label>
+                            <select id="gender" name="gender" required>
+                                <option value="male">Male</option>
+                                <option value="female" selected>Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="input-field">
+                            <label for="weight">Weight (kg)</label>
+                            <input type="number" id="weight" name="weight" placeholder="70" value="70" min="30" max="200" step="0.1" required>
+                        </div>
+                        <div class="input-field">
+                            <label for="height">Height (cm)</label>
+                            <input type="number" id="height" name="height" placeholder="175" value="175" min="100" max="250" required>
+                        </div>
+                        <div class="input-field">
+                            <label for="bp_sys">Blood Pressure (Systolic)</label>
+                            <input type="number" id="bp_sys" name="bp_sys" placeholder="120" value="120" min="80" max="200" required>
+                        </div>
+                        <div class="input-field">
+                            <label for="bp_dia">Blood Pressure (Diastolic)</label>
+                            <input type="number" id="bp_dia" name="bp_dia" placeholder="80" value="80" min="40" max="120" required>
+                        </div>
+                        <div class="input-field">
+                            <label for="cholesterol">Cholesterol (mg/dL)</label>
+                            <input type="number" id="cholesterol" name="cholesterol" placeholder="180" value="180" min="100" max="400" required>
+                        </div>
+                        <div class="input-field">
+                            <label for="blood_sugar">Blood Sugar (mg/dL)</label>
+                            <input type="number" id="blood_sugar" name="blood_sugar" placeholder="90" value="90" min="50" max="300" required>
+                        </div>
+                        <div class="input-field">
+                            <label for="exercise">Exercise (hours/week)</label>
+                            <input type="number" id="exercise" name="exercise" placeholder="3" value="3" min="0" max="20" step="0.5" required>
+                        </div>
+                        <div class="input-field">
+                            <label for="smoking">Smoking Status</label>
+                            <select id="smoking" name="smoking" required>
+                                <option value="never" selected>Never</option>
+                                <option value="former">Former</option>
+                                <option value="current">Current</option>
+                            </select>
+                        </div>
+                        <div class="input-field">
+                            <label for="sleep_hours">Sleep (hours/night)</label>
+                            <input type="number" id="sleep_hours" name="sleep_hours" placeholder="7" value="7" min="3" max="12" step="0.5">
+                        </div>
+                        <div class="input-field">
+                            <label for="stress_level">Stress Level (1-10)</label>
+                            <input type="number" id="stress_level" name="stress_level" placeholder="5" value="5" min="1" max="10">
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button type="button" class="btn-primary" onclick="generateHealthRecommendations()">
+                            🚀 Generate AI Health Analysis
+                        </button>
+                        <button type="button" class="btn-secondary" onclick="resetForm('health-form')">
+                            🔄 Reset Form
+                        </button>
+                        <button type="button" class="btn-secondary" onclick="exportRecommendations('health')">
+                            📥 Export Report
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="health-results" class="recommendations-container" style="display: none;">
+                <div class="recommendations-header">
+                    <h3>🤖 AI Health Analysis</h3>
+                    <div class="processing-info">
+                        <span class="processing-badge">ML Processing Complete</span>
+                        <span class="timestamp" id="health-timestamp"></span>
+                    </div>
+                </div>
+                <div id="health-recommendations" class="recommendations-grid"></div>
+            </div>
+
+            <div class="charts-section">
+                <div class="chart-container">
+                    <div class="chart-wrapper">
+                        <canvas id="healthChart"></canvas>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="healthRiskChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Learning Tab -->
+        <div id="learning" class="tab-content">
+            <div class="ml-info">
+                <h3>📚 AI Learning Assistant</h3>
+                <p>Advanced learning analytics using adaptive algorithms, knowledge gap analysis, and personalized study paths.</p>
+                <div class="confidence-indicator">
+                    <span>Model Confidence: </span>
+                    <span class="confidence-score" id="learning-confidence">94.7%</span>
+                </div>
+            </div>
+            
+            <div class="input-section">
+                <h3>Learning Assessment Input</h3>
+                <form id="learning-form" class="form-grid">
+                    <div class="input-group">
+                        <div class="input-field">
+                            <label for="math_score">Math Score (%)</label>
+                            <input type="number" id="math_score" name="math_score" placeholder="85" value="85" min="0" max="100" required>
+                        </div>
+                        <div class="input-field">
+                            <label for="science_score">Science Score (%)</label>
+                            <input type="number" id="science_score" name="science_score" placeholder="78" value="78" min="0" max="100" required>
+                        </div>
+                        <div class="input-field">
+                            <label for="language_score">Language Score (%)</label>
+                            <input type="number" id="language_score" name="language_score" placeholder="92" value="92" min="0" max="100" required>
+                        </div>
+                        <div class="input-field">
+                            <label for="history_score">History Score (%)</label>
+                            <input type="number" id="history_score" name="history_score" placeholder="88" value="88" min="0" max="100">
+                        </div>
+                        <div class="input-field">
+                            <label for="study_hours">Study Hours/Week</label>
+                            <input type="number" id="study_hours" name="study_hours" placeholder="20" value="20" min="1" max="80" required>
+                        </div>
+                        <div class="input-field">
+                            <label for="learning_style">Learning Style</label>
+                            <select id="learning_style" name="learning_style" required>
+                                <option value="visual">Visual</option>
+                                <option value="auditory">Auditory</option>
+                                <option value="kinesthetic" selected>Kinesthetic</option>
+                                <option value="mixed">Mixed</option>
+                            </select>
+                        </div>
+                        <div class="input-field">
+                            <label for="goal_level">Goal Level</label>
+                            <select id="goal_level" name="goal_level" required>
+                                <option value="beginner">Beginner</option>
+                                <option value="intermediate" selected>Intermediate</option>
+                                <option value="advanced">Advanced</option>
+                            </select>
+                        </div>
+                        <div class="input-field">
+                            <label for="preferred_time">Preferred Study Time</label>
+                            <select id="preferred_time" name="preferred_time">
+                                <option value="morning" selected>Morning</option>
+                                <option value="afternoon">Afternoon</option>
+                                <option value="evening">Evening</option>
+                                <option value="night">Night</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="button-group">
+                        <button type="button" class="btn-primary" onclick="generateLearningRecommendations()">
+                            🚀 Generate AI Learning Plan
+                        </button>
+                        <button type="button" class="btn-secondary" onclick="resetForm('learning-form')">
+                            🔄 Reset Form
+                        </button>
+                        <button type="button" class="btn-secondary" onclick="exportRecommendations('learning')">
+                            📥 Export Report
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="learning-results" class="recommendations-container" style="display: none;">
+                <div class="recommendations-header">
+                    <h3>🤖 AI Learning Plan</h3>
+                    <div class="processing-info">
+                        <span class="processing-badge">ML Processing Complete</span>
+                        <span class="timestamp" id="learning-timestamp"></span>
+                    </div>
+                </div>
+                <div id="learning-recommendations" class="recommendations-grid"></div>
+            </div>
+
+            <div class="charts-section">
+                <div class="chart-container">
+                    <div class="chart-wrapper">
+                        <canvas id="learningChart"></canvas>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="learningProgressChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics Tab -->
+        <div id="analytics" class="tab-content">
+            <div class="ml-info">
+                <h3>📊 Advanced Analytics Dashboard</h3>
+                <p>Comprehensive analytics and insights across all AI modules with comparative analysis.</p>
+            </div>
+            
+            <div class="analytics-grid">
+                <div class="analytics-card">
+                    <h4>System Performance</h4>
+                    <div class="analytics-content">
+                        <div class="metric">
+                            <span class="metric-label">Total Analyses:</span>
+                            <span class="metric-value" id="total-analyses">0</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Avg Processing Time:</span>
+                            <span class="metric-value" id="avg-processing-time">0ms</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Success Rate:</span>
+                            <span class="metric-value" id="success-rate">100%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="analytics-card">
+                    <h4>ML Model Performance</h4>
+                    <div class="analytics-content">
+                        <div class="chart-wrapper">
+                            <canvas id="modelPerformanceChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="analytics-card">
+                    <h4>User Engagement</h4>
+                    <div class="analytics-content">
+                        <div class="chart-wrapper">
+                            <canvas id="engagementChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="analytics-card">
+                    <h4>Recommendation Categories</h4>
+                    <div class="analytics-content">
+                        <div class="chart-wrapper">
+                            <canvas id="categoriesChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Advanced AI Recommendation System. Powered by Machine Learning.</p>
+    </footer>
+
+    <script src="/static/js/ml-models.js"></script>
+    <script src="/static/js/chart-utils.js"></script>
+    <script src="/static/js/recommendation-engine.js"></script>
+    <script src="/static/js/app.js"></script>
+    
+    <style>
+        /* Enhanced CSS with better project structure */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(45deg, #667eea, #764ba2);
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --info-color: #3498db;
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --text-primary: #2c3e50;
+            --text-secondary: #666;
+            --border-color: #e9ecef;
+            --shadow: 0 5px 15px rgba(0,0,0,0.1);
+            --shadow-lg: 0 20px 40px rgba(0,0,0,0.1);
+            --border-radius: 15px;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--primary-gradient);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--shadow-lg);
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: var(--text-primary);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: var(--secondary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            background: var(--light-bg);
+            border-radius: var(--border-radius);
+            padding: 5px;
+            gap: 5px;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            background: transparent;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: var(--transition);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .tab-button:hover {
+            transform: translateY(-2px);
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .tab-button.active {
+            background: var(--secondary-gradient);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .tab-icon {
+            font-size: 16px;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ml-info {
+            background: var(--secondary-gradient);
+            color: white;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+        }
+
+        .ml-info h3 {
+            margin-bottom: 10px;
+            font-size: 1.4em;
+        }
+
+        .confidence-indicator {
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .confidence-score {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--success-color);
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+
+        .input-section {
+            background: var(--light-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 2px solid var(--border-color);
+        }
+
+        .input-section h3 {
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            font-size: 1.3em;
+        }
+
+        .form-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .input-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .input-field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-field label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+            font-size: 14px;
+        }
+
+        .input-field input,
+        .input-field select {
+            padding: 12px 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+            transition: var(--transition);
+            background: white;
+        }
+
+        .input-field input:focus,
+        .input-field select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--secondary-gradient);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--text-primary);
+            border: 2px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--light-bg);
+            transform: translateY(-2px);
+        }
+
+        .recommendations-container {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .recommendations-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .recommendations-header h3 {
+            color: var(--text-primary);
+            font-size: 1.4em;
+        }
+
+        .processing-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .processing-badge {
+            background: var(--success-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .timestamp {
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        .recommendations-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .recommendation-item {
+            padding: 20px;
+            border-radius: 10px;
+            background: var(--light-bg);
+            border-left: 4px solid;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .recommendation-item:hover {
+            transform: translateX(5px);
+            box-shadow: var(--shadow);
+        }
+
+        .recommendation-item.priority-high {
+            border-left-color: var(--danger-color);
+        }
+
+        .recommendation-item.priority-medium {
+            border-left-color: var(--warning-color);
+        }
+
+        .recommendation-item.priority-low {
+            border-left-color: var(--success-color);
+        }
+
+        .recommendation-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .recommendation-desc {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .charts-section {
+            margin-top: 30px;
+        }
+
+        .chart-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .chart-wrapper {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            position: relative;
+            min-height: 300px;
+        }
+
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .analytics-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+        }
+
+        .analytics-card h4 {
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            font-size: 1.2em;
+        }
+
+        .analytics-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .metric:last-child {
+            border-bottom: none;
+        }
+
+        .metric-label {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .metric-value {
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Loading overlay improvements */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-overlay.show {
+            display: flex;
+        }
+
+        .loading-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            color: white;
+            max-width: 400px;
+            animation: loadingPulse 2s ease-in-out infinite;
+        }
+
+        .loading-text {
+            margin: 20px 0 10px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .loading-progress {
+            margin-top: 20px;
+        }
+
+        .loading-progress small {
+            display: block;
+            margin-top: 10px;
+            opacity: 0.8;
+            font-size: 14px;
+        }
+
+        @keyframes loadingPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .alert-error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        .alert-warning {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: var(--border-color);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--secondary-gradient);
+            transition: width 0.3s ease;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 12px;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            top: 15px;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-online {
+            background-color: var(--success-color);
+        }
+
+        .status-offline {
+            background-color: var(--danger-color);
+        }
+
+        .status-processing {
+            background-color: var(--warning-color);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+                margin: 10px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .tabs {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .tab-button {
+                padding: 12px 15px;
+            }
+
+            .input-group {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .chart-container {
+                grid-template-columns: 1fr;
+            }
+
+            .analytics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .recommendations-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .input-section {
+                padding: 20px;
+            }
+
+            .recommendations-container {
+                padding: 20px;
+            }
+
+            .chart-wrapper {
+                padding: 15px;
+            }
+        }
+
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --light-bg: #2c3e50;
+                --white: #34495e;
+                --text-primary: #ecf0f1;
+                --text-secondary: #bdc3c7;
+                --border-color: #34495e;
+            }
+
+            body {
+                background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            }
+
+            .container {
+                background: rgba(52, 73, 94, 0.95);
+            }
+
+            .input-field input,
+            .input-field select {
+                background: #34495e;
+                color: #ecf0f1;
+                border-color: #4a5f7a;
+            }
+
+            .recommendation-item {
+                background: #34495e;
+            }
+
+            .chart-wrapper,
+            .analytics-card,
+            .recommendations-container {
+                background: #34495e;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+
+            .container {
+                box-shadow: none;
+                background: white;
+            }
+
+            .tabs,
+            .button-group {
+                display: none;
+            }
+
+            .tab-content {
+                display: block !important;
+            }
+
+            .chart-wrapper {
+                break-inside: avoid;
+            }
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.5s ease;
+        }
+
+        .slide-up {
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .bounce {
+            animation: bounce 0.6s ease;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--light-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary-gradient);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #5a6fd8;
+        }
+
+        /* Focus indicators for accessibility */
+        .tab-button:focus,
+        .btn-primary:focus,
+        .btn-secondary:focus,
+        .input-field input:focus,
+        .input-field select:focus {
+            outline: 2px solid #667eea;
+            outline-offset: 2px;
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            :root {
+                --primary-gradient: linear-gradient(135deg, #000080 0%, #000040 100%);
+                --secondary-gradient: linear-gradient(45deg, #000080, #000040);
+                --border-color: #000;
+                --text-primary: #000;
+                --text-secondary: #333;
+            }
+
+            .container {
+                border: 2px solid #000;
+            }
+
+            .input-field input,
+            .input-field select {
+                border: 2px solid #000;
+            }
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+
+    <!-- Modal for Export -->
+    <div id="exportModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Export Recommendations</h3>
+            <p>Choose export format:</p>
+            <div class="button-group">
+                <button class="btn-primary" onclick="exportToPDF()">📄 Export as PDF</button>
+                <button class="btn-secondary" onclick="exportToJSON()">📋 Export as JSON</button>
+                <button class="btn-secondary" onclick="exportToCSV()">📊 Export as CSV</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p class="loading-text">🤖 Processing AI recommendations...</p>
+            <div class="loading-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <small>Analyzing your data with advanced ML algorithms</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast notifications -->
+    <div id="toastContainer" style="position: fixed; top: 20px; right: 20px; z-index: 10000;"></div>
+</body>
+</html>
+
+
+
+
+
+
+
